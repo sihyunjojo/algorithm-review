@@ -59,8 +59,6 @@ public class Main {
                     isvisited[cnt_brake - 1][dy][dx] = true;
                     isvisited[cnt_brake][dy][dx] = true;
                     q.add(new int[]{dy, dx, cnt_brake - 1, dis + 1});
-                } else if (board[dy][dx] == '1' && cnt_brake == 0){
-                    isvisited[cnt_brake][dy][dx] = true;
                 } else if (board[dy][dx] == '0') {
                     isvisited[cnt_brake][dy][dx] = true;
                     q.add(new int[]{dy, dx, cnt_brake, dis + 1});
