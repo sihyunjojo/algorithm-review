@@ -2,13 +2,28 @@ import java.io.*;
 import java.util.*;
 
 public class Solution {
+    static class Node implements Comparable<Node> {
+        int x;
+        int y;
+        int cost;
+
+        public Node(int x, int y, int cost) {
+            this.x = x;
+            this.y = y;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Node o) {
+            return cost - o.cost;
+        }
+    }
     static StringBuilder sb = new StringBuilder();
     static int n;
     static int[][] delta = new int[][]{{1, 0}, {-1, 0}, {0, -1}, {0, 1}};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
         int tc = Integer.parseInt(br.readLine());
         for (int t = 1; t <= tc; t++) {
             sb.append("#").append(t).append(" ");
@@ -23,44 +38,27 @@ public class Solution {
                 }
             }
 
-            int[][] distance = new int[n][n];
             boolean[][] isvisited = new boolean[n][n];
 
-//            for (int i = 0; i < n; i++) {
-//                for (int j = 0; j < n; j++) {
-//                    if(i == 0 & j == 0) continue;
-//                    distance[i][j] = Integer.MAX_VALUE;
-//                }
-//            }
-
-            PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o[0]));
-            pq.offer(new int[]{0, 0, 0});
+            PriorityQueue<Node> pq = new PriorityQueue<>();
+            pq.add(new Node(0,0,0));
             isvisited[0][0] = true;
-            
-            
+
+
             loop:
             while (!pq.isEmpty()) {
-                int[] poll = pq.poll();
-                int value = poll[0]; // distance[y][x]
-                int y = poll[1];
-                int x = poll[2];
-
-//                if (isvisited[y][x]) continue;
-//                isvisited[y][x] = true;
+                Node now = pq.poll();
 
                 for (int d = 0; d < 4; d++) {
+                    int y = now.y + delta[d][0];
+                    int x = now.x + delta[d][1];
+                    if (!checkSize(y, x)) continue;
+                    if (isvisited[y][x]) continue;
+                    isvisited[y][x] = true;
+                    pq.add(new Node(x,y,board[y][x] + now.cost));
 
-                    int dy = y + delta[d][0];
-                    int dx = x + delta[d][1];
-                    if (!checkSize(dy, dx)) continue;
-                    if (isvisited[dy][dx]) continue;
-                    isvisited[dy][dx] = true;
-//                    if (distance[dy][dx] <= distance[y][x] + board[dy][dx]) continue;
-//                    distance[dy][dx] = distance[y][x] + board[dy][dx];
-                    pq.offer(new int[]{value+board[dy][dx], dy, dx});
-
-                    if (dy == n - 1 && dx == n - 1) {
-                        sb.append(value).append("\n");
+                    if (y == n - 1 && x == n - 1) {
+                        sb.append(now.cost).append("\n");
                         break loop;
                     }
                 }
