@@ -1,45 +1,42 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
-public class Main{
-    static int res;
-    static StringBuilder sb = new StringBuilder();
+public class Main {
+
+    static boolean primeflag[];
+    static ArrayList<Integer> prime;
+    static int subtotal[];
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
+        prime = new ArrayList<>();
+        makePrime(N);
 
-        ArrayList<Integer> arr = new ArrayList<>();
-        arr.add(0);
-        int tmp = 0;
-
-        boolean[] dp = new boolean[n+1];
-        for (int i = 2; i <= n; i++) {
-            if (!dp[i]) {
-                int j = 1;
-                while (j * i <= n) {
-                    dp[j++ * i] = true;
-                }
-                arr.add(arr.get(tmp++) + i);
-            }
+        int start=0, end=0, sum=0, count=0;
+        while(true) {
+            if(sum >= N ) sum -= prime.get(start++);
+            else if(end == prime.size()) break;
+            else sum += prime.get(end++);
+            if(N==sum) count++;
         }
+        System.out.println(count);
 
-        int start = 0, end = 1, sum = 0;
 
-        while (start <= end && end < arr.size()){
-            sum = arr.get(end) - arr.get(start);
-
-            if (sum < n) {
-                end++;
-            } else if (sum > n) {
-                start++;
-            } else {
-                res++;
-                end++;
-            }
-        }
-        System.out.println(res);
     }
-
+    public static void makePrime(int n) {
+        primeflag = new boolean[n + 1];
+        primeflag[0] = primeflag[1] = true;
+        for(int i=2; i*i<=n; i++){
+            // prime[i]가 소수라면
+            if(!primeflag[i]){
+                // prime[j] 소수가 아닌 표시
+                for(int j=i*i; j<=n; j+=i) primeflag[j] = true;
+            }
+        }
+        for (int i = 1; i <=n; i++)
+            if (!primeflag[i]) prime.add(i);
+    }
 }
