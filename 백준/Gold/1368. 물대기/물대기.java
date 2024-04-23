@@ -40,6 +40,7 @@ public class Main {
                 costs += cost;
                 if (++cnt == n) {
                     System.out.println(costs);
+                    break;
                 }
             }
         }
