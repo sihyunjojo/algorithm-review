@@ -30,7 +30,9 @@ public class Main {
 
         int costs = 0;
         int cnt = 0;
-        while (!list.isEmpty()){
+        
+//        for (int j = 0; j < list.size(); j++) {
+        while (!list.isEmpty()) {
             int[] poll = list.poll();
             int n1 = poll[0];
             int n2 = poll[1];
