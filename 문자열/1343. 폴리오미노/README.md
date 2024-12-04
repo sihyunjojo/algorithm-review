@@ -2,6 +2,18 @@
 
 [문제 링크](https://www.acmicpc.net/problem/1343) 
 
+### 회고
+문자열 함수를 알고리즘에 적용하는 능력이 부족한 것 같다.
+문자열 함수에 대해서 학습을 해서 실력을 느려야겠다.
+
+```
+    str = str.replaceAll("XXXX","AAAA");   
+    str = str.replaceAll("XX","BB");
+
+    if(str.indexOf("X")!=-1) System.out.print("-1");
+    else System.out.print(str);
+```
+
 ### 성능 요약
 
 메모리: 14228 KB, 시간: 104 ms
