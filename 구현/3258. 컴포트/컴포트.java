@@ -18,6 +18,7 @@ public class Main {
         z = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         
+        // fail_array = new HashSet<>();
         fail_array = new int[m];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < m; i++) {
@@ -39,6 +40,7 @@ public class Main {
     static boolean dfs(int now_block) {
         if (now_block == z) return true;
         if (visitied[now_block]) return false;
+        // if (fail_array.contains(now_block)) return false;
         for (int fail_num : fail_array) {
             if (now_block == fail_num) return false;
         }
