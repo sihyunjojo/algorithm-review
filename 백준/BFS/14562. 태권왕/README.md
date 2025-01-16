@@ -2,6 +2,9 @@
 
 [문제 링크](https://www.acmicpc.net/problem/14562) 
 
+### 회고
+queue 안에 배열을 넣으면 편하다!
+
 ### 성능 요약
 
 메모리: 14560 KB, 시간: 108 ms
